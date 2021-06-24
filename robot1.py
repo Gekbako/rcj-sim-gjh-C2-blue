@@ -14,8 +14,8 @@ from GoToFunc import goTo
 from MovementCalculator import fit_parabola, get_tangent_point, passes_boundary, scores_own_goal
 
 STARTING_POS =  {'x': 0.21979533333333334, 'y': 0.7072653846153846}
-TARGET_POS_B1 = {'x': STARTING_POS['x'], 'y': 0}
-CAMPING_POS_B1 = {'x': 1-STARTING_POS['x'], 'y': STARTING_POS['y']}
+TARGET_POS_B1 = {'x': 0, 'y': STARTING_POS['y']}
+CAMPING_POS_B1 = {'x': 1, 'y': STARTING_POS['y']}
 
 def BALL_IN_QUADRANT_B1(ball):
     if ball['x'] > 0.63 and ball['y']> 0.57:
