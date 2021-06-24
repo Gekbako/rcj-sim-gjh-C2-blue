@@ -14,11 +14,11 @@ from GoToFunc import goTo
 from MovementCalculator import fit_parabola, get_tangent_point, passes_boundary, scores_own_goal
 
 STARTING_POS =  {'x': 0.21979533333333334, 'y': 0.7072653846153846}
-TARGET_POS_Y1 = {'x': STARTING_POS['x'], 'y': 0}
-CAMPING_POS_Y1 = {'x': STARTING_POS['x'], 'y':1}
+TARGET_POS_B1 = {'x': STARTING_POS['x'], 'y': 0}
+CAMPING_POS_B1 = {'x': 1-STARTING_POS['x'], 'y': STARTING_POS['y']}
 
-def BALL_IN_QUADRANT_Y1(ball):
-    if ball['x']< 0.36 and ball['y']> 0.57:
+def BALL_IN_QUADRANT_B1(ball):
+    if ball['x'] > 0.63 and ball['y']> 0.57:
         return True
     return False
 
@@ -43,14 +43,14 @@ class MyBallPassingRobot1(RCJSoccerRobot):
 
                 self.intercept_c.pushPoint(ball_pos)
                 
-                if BALL_IN_QUADRANT_Y1(ball_pos):
+                if BALL_IN_QUADRANT_B1(ball_pos):
                     intercept = self.intercept_c.calculateOptimumIntercept(robot_pos, Team, sample_count=200)
                     
                     
                     inverse_intercept = inverse_point(intercept)
                     inverse_robot_pos = inverse_point(robot_pos)
                     
-                    inverse_target = inverse_point(TARGET_POS_Y1)
+                    inverse_target = inverse_point(TARGET_POS_B1)
                     #dst
                     print(inverse_robot_pos)
                     print(inverse_intercept)
@@ -65,8 +65,8 @@ class MyBallPassingRobot1(RCJSoccerRobot):
                     print("point", point)
                     out = goTo(point['y'], point['x'], robot_pos, robot_angle, should_soften=False)
                 else:
-                    all_angle, robot_angle = self.get_angles(CAMPING_POS_Y1, robot_pos)
-                    out = goTo(CAMPING_POS_Y1['x'], CAMPING_POS_Y1['y'], robot_pos, robot_angle, should_soften=False)
+                    all_angle, robot_angle = self.get_angles(CAMPING_POS_B1, robot_pos)
+                    out = goTo(CAMPING_POS_B1['x'], CAMPING_POS_B1['y'], robot_pos, robot_angle, should_soften=False)
                 # Get angle between the robot and the ball
                 # and between the robot and the north
 
